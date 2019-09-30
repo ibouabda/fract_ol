@@ -1,14 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/09/30 18:31:35 by ibouabda         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    test                                               :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#              #
+#    Updated: 2019/09/30 17:51:01 by ibouabda         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 #include "fractol.h"
 
@@ -49,7 +49,7 @@ void mandelbroth(float x, float y, t_env *e)
 	}
 	// printf("zn1 = %f, zi1 = %f\n", zn1, zi1);
 	if (zn1 >= 2 || zi1 >=2 || sqrt(zn1 * zn1 + zi1 * zi1) >= 2)
-		ft_fill_pixel(e->x, e->y, e);
+		ft_fill_pixel(x, y, e);
 }
 
 void julia(float x, float y, t_env *e)
@@ -73,42 +73,44 @@ void julia(float x, float y, t_env *e)
 	}
 	// printf("zn1 = %f, zi1 = %f\n", zn1, zi1);
 	if (zn1 >= 2 || zi1 >=2 || sqrt(zn1 * zn1 + zi1 * zi1) >= 2)
-		ft_fill_pixel(e->x, e->y, e);
+		ft_fill_pixel(x, y, e);
 }
 
 void cross_string(t_env *e)
 {
+	int x;
+	int y;
 	float x0;
 	float y0;
 
-	e->y = 0;
-	while (e->y < e->winy)
+	y = 0;
+	while (y < e->winy)
 	{
-		e->x = 0;
-		while (e->x < e->winx)
+		x = 0;
+		while (x < e->winx)
 		{
-			// if (e->y < 50)
+			// if (y < 50)
 			// 	dprintf(fd, "x0 = %f, y0 = %f\n", x0, y0);
-			x0 = (float)(e->x - e->midx) / (float)e->convx;
-			y0 = (float)(e->y - e->midy) / (float)e->convy;
+			x0 = (float)(x - e->midx) / (float)e->convx;
+			y0 = (float)(y - e->midy) / (float)e->convy;
 			if (e->fract == 1)
-				mandelbroth(x0, y0, e);
+				mandelbroth(x, y, e);
 			else if (e->fract == 2)
-				julia(x0, y0, e);
-			e->x++;
+				julia(x, y, e);
+			x++;
 		}
-		e->y++;
+		y++;
 	}
 }
 
-int		ft_key_hook(int keycode,t_env *e)
+int		ft_key_hook(int keycode, t_env *e)
 {
 	if (keycode == ESC)
 	{
 		mlx_destroy_image(e->mlx_ptr,e->img_ptr);
 		exit(0);
 	}
-	if (keycode == ONE)
+		if (keycode == ONE)
 	{
 		e->fract = 1;
 	}
@@ -116,27 +118,10 @@ int		ft_key_hook(int keycode,t_env *e)
 	{
 		e->fract = 2;
 	}
-	if (keycode == 1)
-	{
-		if (e->fract == 1)
-			e->fract--;
-		if (e->fract == 0)
-			e->fract++;
-	}
 	new_img(e);
 	cross_string(e);
 	mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
-	return (0);
-}
-
-int ft_motion(int x, int y, t_env *e)
-{
-	e->cn = x/100;
-	e->ci = y/100;
-	new_img(e);
-	cross_string(e);
-	mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
-	return (0);
+	return(0);
 }
 
 int main(int argc, char **argv)
@@ -158,8 +143,7 @@ int main(int argc, char **argv)
 	cross_string(&e);
 	// ft_fill_pixel(100, 100, &e);
 	mlx_put_image_to_window(e.mlx_ptr, e.win_ptr, e.img_ptr, 0, 0);
-	mlx_hook(e.win_ptr, 2, (1 < 0), ft_key_hook, &e);
-	// mlx_hook(e.win_ptr, 2, (1L << 8), ft_motion, &e);
+	mlx_hook(e.win_ptr, 2, (1 << 0), ft_key_hook, &e);
 	mlx_loop(e.mlx_ptr);
 	return(0);
 }

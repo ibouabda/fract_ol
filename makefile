@@ -6,7 +6,7 @@
 #    By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/11 17:46:29 by idris             #+#    #+#              #
-#    Updated: 2019/09/29 18:41:56 by ibouabda         ###   ########.fr        #
+#    Updated: 2019/09/30 12:27:40 by ibouabda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MLX = -framework OpenGL -framework AppKit
 
 CC = gcc
 
-SRC_NAME = main.c
+SRC_NAME = main.c mlx_img.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
