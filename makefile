@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+         #
+#    By: idris <idris@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/11 17:46:29 by idris             #+#    #+#              #
-#    Updated: 2019/09/30 12:27:40 by ibouabda         ###   ########.fr        #
+#    Updated: 2019/10/01 19:14:33 by idris            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fract_ol
+NAME = fractol
 
 CFLAGS = -Wall -Werror -Wextra
 

@@ -3,24 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/09/30 18:31:35 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/01 19:49:25 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	ft_verifscreensize(t_env *e, int argc, char **argv)
+void	ft_check(t_env *e, int argc, char **argv)
 {
-	if (argc != 3)
+	if (argc != 4)
 	{
-		ft_putendl(USAGE);
+		ft_putendl("usage: ./fractol fractale_name [400 <= weidth_size <= 2560]\
+[800 <= long_size <= 1440]");
+		ft_putendl("choose one of this fractals:\n->mandelbroth\n->julia");
 		exit(1);
 	}
-	e->winx = ft_atoi(argv[1]);
-	e->winy = ft_atoi(argv[2]);
+	if (ft_strequ(argv[1], "mandelbroth"))
+		e->fract = 1;
+	else if (ft_strequ(argv[1], "julia"))
+		e->fract = 2;
+	else
+	{
+		ft_putendl("choose one of this fractals:\n->mandelbroth\n->julia");
+	}
+	e->winx = ft_atoi(argv[2]);
+	e->winy = ft_atoi(argv[3]);
 	if (e->winx < 400 || e->winy < 800 || e->winx > 2560 || e->winy > 1440)
 	{
 		ft_putendl(USAGE);
@@ -108,6 +118,17 @@ int		ft_key_hook(int keycode,t_env *e)
 		mlx_destroy_image(e->mlx_ptr,e->img_ptr);
 		exit(0);
 	}
+	if (e->fract == 2)
+	{
+		if (keycode == W)
+			e->ci += 0.03;
+		if (keycode == S)
+			e->ci -= 0.03;
+		if (keycode == A)
+			e->cn -= 0.03;
+		if (keycode == D)
+			e->cn += 0.03;
+	}
 	if (keycode == ONE)
 	{
 		e->fract = 1;
@@ -129,15 +150,15 @@ int		ft_key_hook(int keycode,t_env *e)
 	return (0);
 }
 
-int ft_motion(int x, int y, t_env *e)
-{
-	e->cn = x/100;
-	e->ci = y/100;
-	new_img(e);
-	cross_string(e);
-	mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
-	return (0);
-}
+// int ft_motion(int x, int y, t_env *e)
+// {
+// 	e->cn = x/100;
+// 	e->ci = y/100;
+// 	new_img(e);
+// 	cross_string(e);
+// 	mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
+// 	return (0);
+// }
 
 int main(int argc, char **argv)
 {
@@ -145,7 +166,7 @@ int main(int argc, char **argv)
 	int fd;
 
 	fd = open("test", O_RDWR);
-	ft_verifscreensize(&e, argc, argv);
+	ft_check(&e, argc, argv);
 	new_window(&e);
 	img(&e);
 	e.midx = e.winx/2;
