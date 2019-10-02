@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 11:29:23 by retounsi          #+#    #+#             */
-/*   Updated: 2019/09/30 14:50:15 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/02 17:23:33 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ void	ft_fill_pixel(int x, int y, t_env *e)
 	e->img_string[pos] = (char)255;
 	e->img_string[pos + 1] = (char)255;
 	e->img_string[pos + 2] = (char)255;
+}
+
+void	ft_fill_pixel_color(int x, int y, int color, t_env *e)
+{
+	int	pos;
+
+	pos = y * e->winx * 4 + x * 4;
+	e->img_string[pos] = (char)e->b + color;
+	e->img_string[pos + 1] = (char)e->g + color;
+	e->img_string[pos + 2] = (char)e->r + color;
 }
 
 void	new_window(t_env *e)

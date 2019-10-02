@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/09/30 18:22:21 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/02 17:11:04 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@
 # define USAGE "usage: ./fdf target_file [400 <= weidth_size <= 2560]\
 [800 <= long_size <= 1440]"
 
+# define PTR_MOTION_MASK (1L<<6)
+# define MOTION_NOTIFY 6
+# define KEY_PRESS_MASK (1L<<0)
+# define KEY_PRESS 2
+
 # include "libft/libft.h"
 # include "minilibx_macos/mlx.h"
 # include <fcntl.h>
@@ -75,6 +80,9 @@
 
 typedef struct	s_env
 {
+	int		r;
+	int		g;
+	int		b;
 	int		winx;
 	int		winy;
 	int		midx;
@@ -85,6 +93,8 @@ typedef struct	s_env
 	float	var;
 	float	ci;
 	float	cn;
+	float	cursorx;
+	float	cursory;
 	int		x;
 	int		y;
 	int		mx;
@@ -100,6 +110,7 @@ void			new_window(t_env *e);
 void			img(t_env *e);
 void			new_img(t_env *e);
 void			ft_fill_pixel(int x, int y, t_env *e);
+void			ft_fill_pixel_color(int x, int y, int color, t_env *e);
 
 #endif
 
