@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 11:29:23 by retounsi          #+#    #+#             */
-/*   Updated: 2019/10/03 10:05:09 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/03 10:29:04 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_fill_pixel_color(int x, int y, int color, t_env *e)
 		e->img_string[pos + 1] = (char)(color);
 		e->img_string[pos + 2] = (char)(color);
 	}
-		if (e->b == 0 && e->r == 0 && e->g == 0 && e->neg == 1)
+	else if (e->b == 0 && e->r == 0 && e->g == 0 && e->neg == 1)
 	{
 		e->img_string[pos] = 255 - (char)(color);
 		e->img_string[pos + 1] = 255 - (char)(color);
