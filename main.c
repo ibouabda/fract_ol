@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/02 17:24:04 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/03 09:55:52 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,17 +141,19 @@ int		ft_key_hook(int keycode,t_env *e)
 	// 		e->cn += 0.03;
 	// }
 	if (keycode == R)
-		e->r += 50;
+		BOOL(e->r);
 	if (keycode == G)
-		e->b += 50;
+		BOOL(e->g);
 	if (keycode == B)
-		e->b += 50;
-	if (keycode == R)
-	{
-		e->r = 0;
-		e->g = 0;
-		e->b = 0;
-	}
+		BOOL(e->b);
+	if (keycode == N)
+		BOOL(e->neg);
+	// if (keycode == R)
+	// {
+	// 	e->r = 0;
+	// 	e->g = 0;
+	// 	e->b = 0;
+	// }
 	if (keycode == ONE)
 	{
 		e->fract = 1;
@@ -179,7 +181,7 @@ int ft_motion(int x, int y, t_env *e)
 	{
 		e->cn = (1.5 * (float)(x - 1.5 * e->midx) / (e->winx / 2));
 		e->ci = (float)(y - e->midy) / (e->winy / 2);
-		printf("x = %f, y = %f\n", e->cn, e->ci);
+		// printf("x = %f, y = %f\n", e->cn, e->ci);
 		new_img(e);
 		cross_string(e);
 		mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
@@ -207,6 +209,7 @@ int main(int argc, char **argv)
 	e.r = 0;
 	e.g = 0;
 	e.b = 0;
+	e.neg = 0;
 	cross_string(&e);
 	// ft_fill_pixel(100, 100, &e);
 	mlx_put_image_to_window(e.mlx_ptr, e.win_ptr, e.img_ptr, 0, 0);

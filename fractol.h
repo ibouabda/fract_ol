@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/02 17:11:04 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/03 09:53:44 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define D 2
 # define E 14
 # define F 3
-# define G 9
+# define G 5
 # define H 4
 # define I 34
 # define J 38
@@ -83,6 +83,7 @@ typedef struct	s_env
 	int		r;
 	int		g;
 	int		b;
+	int		neg;
 	int		winx;
 	int		winy;
 	int		midx;

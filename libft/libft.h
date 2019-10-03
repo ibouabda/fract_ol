@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/11 15:22:12 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/09/28 14:49:35 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/03 09:43:37 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 # define LIBFT_H
 # define ABS(Value) (Value < 0 ? Value * -1 : Value)
+# define BOOL(Value) (Value == 0 ? Value++ : Value --)
 # define BUFF_SIZE 4096
 # include <string.h>
 # include <stdlib.h>

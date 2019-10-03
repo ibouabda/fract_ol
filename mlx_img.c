@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 11:29:23 by retounsi          #+#    #+#             */
-/*   Updated: 2019/10/02 17:23:33 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/03 10:05:09 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,30 @@ void	ft_fill_pixel_color(int x, int y, int color, t_env *e)
 	int	pos;
 
 	pos = y * e->winx * 4 + x * 4;
-	e->img_string[pos] = (char)e->b + color;
-	e->img_string[pos + 1] = (char)e->g + color;
-	e->img_string[pos + 2] = (char)e->r + color;
+	if (e->b == 0 && e->r == 0 && e->g == 0 && e->neg == 0)
+	{
+		e->img_string[pos] = (char)(color);
+		e->img_string[pos + 1] = (char)(color);
+		e->img_string[pos + 2] = (char)(color);
+	}
+		if (e->b == 0 && e->r == 0 && e->g == 0 && e->neg == 1)
+	{
+		e->img_string[pos] = 255 - (char)(color);
+		e->img_string[pos + 1] = 255 - (char)(color);
+		e->img_string[pos + 2] = 255 - (char)(color);
+	}
+	else if (e->neg == 0)
+	{
+		e->img_string[pos] = (char)((e->b * color));
+		e->img_string[pos + 1] = (char)(e->g * color);
+		e->img_string[pos + 2] = (char)(e->r * color);
+	}
+	else if (e->neg == 1)
+	{
+		e->img_string[pos] = (char)(255 - (e->b * color));
+		e->img_string[pos + 1] = (char)(255 - (e->g * color));
+		e->img_string[pos + 2] = (char)(255 - (e->r * color));
+	}
 }
 
 void	new_window(t_env *e)
