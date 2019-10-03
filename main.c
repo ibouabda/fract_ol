@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/03 10:28:09 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/03 18:01:12 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_check(t_env *e, int argc, char **argv)
 {
-	// ft_putendl("loool");
 	if (argc != 4)
 	{
 		ft_putendl("usage: ./fractol fractale_name [400 <= weidth_size <= 2560]\
@@ -30,7 +29,6 @@ void	ft_check(t_env *e, int argc, char **argv)
 		e->fract = 2;
 	else
 	{
-		// ft_putendl("ok");
 		ft_putendl("Choose one of this fractals:\n->mandelbroth\n->julia");
 		exit(1);
 	}
@@ -55,8 +53,8 @@ void mandelbroth(float x, float y, t_env *e)
 	k = 0;
 	zi1 = y;
 	zn1 = x;
-	color = 255.0f / 25;
-	while (k < 25 && zn1 <= 2 && zn1 >= -2 && zi1 <=2 &&\
+	color = 255.0f / e->iter;
+	while (k < e->iter && zn1 <= 2 && zn1 >= -2 && zi1 <=2 &&\
 	zi1 >= -2 && sqrt(zn1 * zn1 + zi1 *zi1) <= 2)
 	{
 		zn = zn1;
@@ -80,11 +78,11 @@ void julia(float x, float y, t_env *e)
 	float color;
 
 	k = 0;
-	color = 255.0f / 25;
+	color = 255.0f / e->iter;
 	zi1 = y;
 	zn1 = x;
-	while (k < 25 && zn1 <= 2 && zn1 >= -2 && zi1 <=2 &&\
-	zi1 >= -2 &&sqrt(zn1 * zn1 + zi1 *zi1) <= 2)
+	while (k < e->iter && zn1 <= 2 && zn1 >= -2 && zi1 <=2 &&\
+	zi1 >= -2 && sqrt(zn1 * zn1 + zi1 *zi1) <= 2)
 	{
 		zn = zn1;
 		zi = zi1;
@@ -127,19 +125,9 @@ int		ft_key_hook(int keycode,t_env *e)
 	if (keycode == ESC)
 	{
 		mlx_destroy_image(e->mlx_ptr,e->img_ptr);
+		// mlx_destroy_window(e->mlx_ptr, e->img_ptr); faut il destroy la fenetre
 		exit(0);
 	}
-	// if (e->fract == 2)
-	// {
-	// 	if (keycode == W)
-	// 		e->ci += 0.03;
-	// 	if (keycode == S)
-	// 		e->ci -= 0.03;
-	// 	if (keycode == A)
-	// 		e->cn -= 0.03;
-	// 	if (keycode == D)
-	// 		e->cn += 0.03;
-	// }
 	if (keycode == R)
 		BOOL(e->r);
 	if (keycode == G)
@@ -162,13 +150,6 @@ int		ft_key_hook(int keycode,t_env *e)
 	{
 		e->fract = 2;
 	}
-	// if (keycode == 1)
-	// {
-	// 	if (e->fract == 1)
-	// 		e->fract--;
-	// 	if (e->fract == 0)
-	// 		e->fract++;
-	// }
 	new_img(e);
 	cross_string(e);
 	mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
@@ -177,7 +158,8 @@ int		ft_key_hook(int keycode,t_env *e)
 
 int ft_motion(int x, int y, t_env *e)
 {
-	if (e->fract == 2 && x < e->winx && y < e->winy && x > 0 && y > 0)
+	if (e->move == 1 && e->fract == 2\
+	&& x < e->winx && y < e->winy && x > 0 && y > 0)
 	{
 		e->cn = (1.5 * (float)(x - 1.5 * e->midx) / (e->winx / 2));
 		e->ci = (float)(y - e->midy) / (e->winy / 2);
@@ -186,6 +168,15 @@ int ft_motion(int x, int y, t_env *e)
 		cross_string(e);
 		mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
 	}
+	return (0);
+}
+
+int mouse_button(int button, int x, int y, t_env *e)
+{
+	(void)x;
+	(void)y;
+	if (button == 2)
+		BOOL(e->move);
 	return (0);
 }
 
@@ -202,18 +193,19 @@ int main(int argc, char **argv)
 	e.midy = e.winy/2;
 	e.convx = e.midx / 2.35;
 	e.convy = e.midy / 1.25;
-	e.cursorx = e.midx / 2.35;
-	e.cursory = e.midy / 1.25;
 	e.cn = 0;
 	e.ci = 0;
 	e.r = 0;
 	e.g = 0;
 	e.b = 0;
 	e.neg = 0;
+	e.move = 0;
+	e.iter = 25;
 	cross_string(&e);
 	// ft_fill_pixel(100, 100, &e);
 	mlx_put_image_to_window(e.mlx_ptr, e.win_ptr, e.img_ptr, 0, 0);
 	mlx_hook(e.win_ptr, 2, (1 < 0), ft_key_hook, &e);
+	mlx_mouse_hook(e.win_ptr, mouse_button, &e);
 	mlx_hook(e.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK, ft_motion, &e);
 	mlx_loop(e.mlx_ptr);
 	return(0);
