@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/03 18:01:12 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/04 16:47:41 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void cross_string(t_env *e)
 		{
 			// if (e->y < 50)
 			// 	dprintf(fd, "x0 = %f, y0 = %f\n", x0, y0);
-			x0 = (float)(e->x - e->midx) / (float)e->convx;
-			y0 = (float)(e->y - e->midy) / (float)e->convy;
+			x0 = (float)(e->x - e->repx + e->depx) / (float)e->convx;
+			y0 = (float)(e->y - e->repy + e->depy) / (float)e->convy;
 			if (e->fract == 1)
 				mandelbroth(x0, y0, e);
 			else if (e->fract == 2)
@@ -128,6 +128,14 @@ int		ft_key_hook(int keycode,t_env *e)
 		// mlx_destroy_window(e->mlx_ptr, e->img_ptr); faut il destroy la fenetre
 		exit(0);
 	}
+	if (keycode == RIGHT_ARROW)
+		e->depx += 10;
+	if (keycode == LEFT_ARROW)
+		e->depx -= 10;
+	if (keycode == UP_ARROW)
+		e->depy -= 10;
+	if (keycode == DOWN_ARROW)
+		e->depy += 10;
 	if (keycode == R)
 		BOOL(e->r);
 	if (keycode == G)
@@ -175,6 +183,28 @@ int mouse_button(int button, int x, int y, t_env *e)
 {
 	(void)x;
 	(void)y;
+	if (button == 4)
+	{
+		e->zoom++;
+		e->repx = (x);
+		e->repy = (-y);
+		e->convx = e->midx/ (2.35 / e->zoom);
+		e->convy = e->midy/ (1.25 / e->zoom);
+		new_img(e);
+		cross_string(e);
+		mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
+	}
+	if (button == 5 && e->zoom > 1)
+	{
+		e->zoom--;
+		e->repx = e->midx;
+		e->repy = e->midy;
+		e->convx = e->midx/ (2.35 / e->zoom);
+		e->convy = e->midy/ (1.25 / e->zoom);
+		new_img(e);
+		cross_string(e);
+		mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
+	}
 	if (button == 2)
 		BOOL(e->move);
 	return (0);
@@ -189,8 +219,13 @@ int main(int argc, char **argv)
 	ft_check(&e, argc, argv);
 	new_window(&e);
 	img(&e);
+	e.depx = 0;
+	e.depy = 0;
 	e.midx = e.winx/2;
 	e.midy = e.winy/2;
+	e.repx = e.midx;
+	e.repy = e.midy;
+	e.zoom = 1;
 	e.convx = e.midx / 2.35;
 	e.convy = e.midy / 1.25;
 	e.cn = 0;

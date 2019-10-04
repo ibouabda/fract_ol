@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/03 17:59:20 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/04 16:43:20 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@
 
 typedef struct	s_env
 {
+	int		depx;
+	int		depy;
+	int		repx;
+	int		repy;
+	int		zoom;
 	int		iter;
 	int		move;
 	int		r;
