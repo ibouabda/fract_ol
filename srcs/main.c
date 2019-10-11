@@ -6,25 +6,16 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/05 18:04:57 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/11 17:24:26 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	ft_check(t_env *e, int argc, char **argv)
+ft_check_frac(t_env *e, char **argv)
 {
-	if (argc != 4)
-	{
-		ft_putendl("usage: ./fractol fractale_name [400 <= weidth_size <= 2560]\
-[800 <= long_size <= 1440]");
-		ft_putendl("choose one of this fractals:\n->mandelbroth\n->julia");
-		exit(1);
-	}
 	if (ft_strcmp(argv[1], "mandelbroth") == 0)
-	{
 		e->fract = 1;
-	}
 	else if (ft_strcmp(argv[1], "julia") == 0)
 		e->fract = 2;
 	else
@@ -32,13 +23,34 @@ void	ft_check(t_env *e, int argc, char **argv)
 		ft_putendl("Choose one of this fractals:\n->mandelbroth\n->julia");
 		exit(1);
 	}
-	e->winx = ft_atoi(argv[2]);
-	e->winy = ft_atoi(argv[3]);
-	if (e->winx < 400 || e->winy < 300 || e->winx > 2560 || e->winy > 1440)
+}
+
+void	ft_check(t_env *e, int argc, char **argv)
+{
+	if (argc == 2)
 	{
-		ft_putendl(USAGE);
+		e->winx = 1280;
+		e->winy = 720;
+	}
+	else if (argc == 4)
+	{
+		e->winx = ft_atoi(argv[2]);
+		e->winy = ft_atoi(argv[3]);
+		if (e->winx < 400 || e->winy < 300 || e->winx > 2560 || e->winy > 1440)
+		{
+			ft_putendl("usage: ./fractol fractale_name [400 <= weidth_size <= 2560]\
+[800 <= long_size <= 1440]");
+			exit(1);
+		}
+	}
+	else
+	{
+		ft_putendl("usage: ./fractol fractale_name [400 <= weidth_size <= 2560]\
+[800 <= long_size <= 1440]");
+		// ft_putendl("choose one of this fractals:\n->mandelbroth\n->julia");
 		exit(1);
 	}
+	ft_check_frac(e, argv);
 }
 
 void mandelbroth(float x, float y, t_env *e)
@@ -256,7 +268,7 @@ int main(int argc, char **argv)
 	e.b = 0;
 	e.neg = 0;
 	e.move = 0;
-	e.iter = 100;
+	e.iter = 25;
 	cross_string(&e);
 	// ft_fill_pixel(100, 100, &e);
 	mlx_put_image_to_window(e.mlx_ptr, e.win_ptr, e.img_ptr, 0, 0);

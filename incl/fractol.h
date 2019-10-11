@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/11 16:27:53 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/11 17:21:15 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,6 @@
 # define RIGHT_ARROW 124
 # define DOWN_ARROW 125
 # define UP_ARROW 126
-
-# define USAGE "usage: ./fdf target_file [400 <= weidth_size <= 2560]\
-[800 <= long_size <= 1440]"
 
 # define PTR_MOTION_MASK (1L<<6)
 # define MOTION_NOTIFY 6
