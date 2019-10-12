@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/11 17:21:15 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/12 12:11:07 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define X 7
 # define Y 16
 # define Z 6
+# define MINUS 27
+# define PLUS 24
 
 # define ONE 18
 # define TWO 19

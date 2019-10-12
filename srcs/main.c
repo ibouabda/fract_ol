@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/11 17:24:26 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/12 17:55:54 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void julia(float x, float y, t_env *e)
 	float sq;
 
 	k = 0;
-	color = 255.0f / e->iter;
+	color = 255.0f/ e->iter;
 	zi1 = y;
 	zn1 = x;
 	while (k < e->iter && ((sq = sqrt(zn1 * zn1 + zi1 *zi1)) <= 2))
@@ -169,14 +169,18 @@ int		ft_key_hook(int keycode,t_env *e)
 	// 	e->g = 0;
 	// 	e->b = 0;
 	// }
-	if (keycode == ONE)
+	else if (keycode == ONE)
 	{
 		e->fract = 1;
 	}
-	if (keycode == TWO)
+	else if (keycode == TWO)
 	{
 		e->fract = 2;
 	}
+	else if (keycode == PLUS)
+		e->iter += 10;
+	else if (keycode == MINUS && e->iter > 10)
+		e->iter -= 10;
 	new_img(e);
 	cross_string(e);
 	mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
