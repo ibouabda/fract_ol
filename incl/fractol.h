@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/12 12:11:07 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/13 18:52:33 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 # define ONE 18
 # define TWO 19
 # define THREE 20
+# define FOUR 21
 
 # define ONE_NUM_PAD 83
 # define TWO_NUM_PAD 84

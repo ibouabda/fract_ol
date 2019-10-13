@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/12 17:55:54 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/13 18:53:40 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@ ft_check_frac(t_env *e, char **argv)
 		e->fract = 1;
 	else if (ft_strcmp(argv[1], "julia") == 0)
 		e->fract = 2;
+	else if (ft_strcmp(argv[1], "burnship") == 0)
+		e->fract = 3;
+	else if (ft_strcmp(argv[1], "burnship_mv") == 0)
+		e->fract = 4;
 	else
 	{
-		ft_putendl("Choose one of this fractals:\n->mandelbroth\n->julia");
+		ft_putendl("Choose one of this fractals:\n->mandelbroth\n->julia\n\
+burnship\nburnship_mv\n");
 		exit(1);
 	}
 }
@@ -69,8 +74,8 @@ void mandelbroth(float x, float y, t_env *e)
 	color = 255.0f / e->iter;
 	while (k < e->iter && ((sq = sqrt(zn1 * zn1 + zi1 *zi1)) <= 2))
 	{
-		zn = zn1;
-		zi = zi1;
+		zn = ABS(zn1);
+		zi = ABS(zi1);
 		zn1 = zn * zn - zi * zi + x;
 		zi1 = 2 * zn * zi + y;
 		k++;
@@ -80,7 +85,7 @@ void mandelbroth(float x, float y, t_env *e)
 		ft_fill_pixel_color(e->x, e->y, (float)((float)k) * color, e);
 }
 
-void julia(float x, float y, t_env *e)
+int julia(float x, float y, t_env *e)
 {
 	int k;
 	float zi;
@@ -91,7 +96,7 @@ void julia(float x, float y, t_env *e)
 	float sq;
 
 	k = 0;
-	color = 255.0f/ e->iter;
+	color = 255.0f / (e->iter);
 	zi1 = y;
 	zn1 = x;
 	while (k < e->iter && ((sq = sqrt(zn1 * zn1 + zi1 *zi1)) <= 2))
@@ -103,14 +108,74 @@ void julia(float x, float y, t_env *e)
 		k++;
 	}
 	// printf("zn1 = %f, zi1 = %f\n", zn1, zi1);
+	// printf("e->iter = %i, k = %i\n", e->iter, k);
+	if (sq >= 2)
+		ft_fill_pixel_color(e->x, e->y, (float)((float)k ) * color, e);
+	return (k);
+}
+
+void burning_ship(float x, float y, t_env *e)
+{
+	int k;
+	float zi;
+	float zn;
+	float zi1;
+	float zn1;
+	float color;
+	float sq;
+
+	k = 0;
+	zi1 = y;
+	zn1 = x;
+	color = 255.0f / e->iter;
+	while (k < e->iter && ((sq = sqrt(zn1 * zn1 + zi1 *zi1)) <= 2))
+	{
+		zn = ABS(zn1);
+		zi = ABS(zi1);
+		zn1 = zn * zn - zi * zi + x;
+		zi1 = 2 * zn * zi + y;
+		k++;
+	}
+	// printf("zn1 = %f, zi1 = %f\n", zn1, zi1);
 	if (sq >= 2)
 		ft_fill_pixel_color(e->x, e->y, (float)((float)k) * color, e);
+}
+
+int burning_ship_move(float x, float y, t_env *e)
+{
+	int k;
+	float zi;
+	float zn;
+	float zi1;
+	float zn1;
+	float color;
+	float sq;
+
+	k = 0;
+	color = 255.0f / (e->iter);
+	zi1 = y;
+	zn1 = x;
+	while (k < e->iter && ((sq = sqrt(zn1 * zn1 + zi1 *zi1)) <= 2))
+	{
+		zn = ABS(zn1);
+		zi = ABS(zi1);
+		zn1 = zn * zn - zi * zi + e->cn;
+		zi1 = 2 * zn * zi + e->ci;
+		k++;
+	}
+	// printf("zn1 = %f, zi1 = %f\n", zn1, zi1);
+	// printf("e->iter = %i, k = %i\n", e->iter, k);
+	if (sq >= 2)
+		ft_fill_pixel_color(e->x, e->y, (float)((float)k ) * color, e);
+	return (k);
 }
 
 void cross_string(t_env *e)
 {
 	float x0;
 	float y0;
+	int maxk;
+	int cmp;
 
 	e->y = 0;
 	while (e->y < e->winy)
@@ -125,11 +190,18 @@ void cross_string(t_env *e)
 			if (e->fract == 1)
 				mandelbroth(x0, y0, e);
 			else if (e->fract == 2)
-				julia(x0, y0, e);
+				cmp = julia(x0, y0, e);
+			else if (e->fract == 3)
+				burning_ship(x0, y0, e);
+			else if (e->fract == 4)
+				burning_ship_move(x0, y0, e);
+			if (maxk < cmp)
+				maxk = cmp;
 			e->x++;
 		}
 		e->y++;
 	}
+	// printf("maxk = %i\n", maxk);
 }
 
 void move(int keycode, t_env *e)
@@ -170,17 +242,18 @@ int		ft_key_hook(int keycode,t_env *e)
 	// 	e->b = 0;
 	// }
 	else if (keycode == ONE)
-	{
 		e->fract = 1;
-	}
 	else if (keycode == TWO)
-	{
 		e->fract = 2;
-	}
+	else if (keycode == THREE)
+		e->fract = 3;
+	else if (keycode == FOUR)
+		e->fract = 4;
 	else if (keycode == PLUS)
 		e->iter += 10;
 	else if (keycode == MINUS && e->iter > 10)
 		e->iter -= 10;
+	// printf("e->iter = %i\n", e->iter);
 	new_img(e);
 	cross_string(e);
 	mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
@@ -189,7 +262,7 @@ int		ft_key_hook(int keycode,t_env *e)
 
 int ft_motion(int x, int y, t_env *e)
 {
-	if (e->move == 1 && e->fract == 2\
+	if (e->move == 1 && (e->fract == 2 || e->fract == 4)\
 	&& x < e->winx && y < e->winy && x > 0 && y > 0)
 	{
 		e->cn = (1.5 * (float)(x - 1.5 * e->midx) / (e->winx / 2));
@@ -216,11 +289,11 @@ int mouse_button(int button, int x, int y, t_env *e)
 		// }
 		// else
 		// {
-		printf("e->repx = %i, e->repy = %i\n", e->repx, e->repy);
+		// printf("e->repx = %i, e->repy = %i\n", e->repx, e->repy);
 		e->repx = e->midx + (e->repx - x);
 		e->repy = e->midy + (e->repy - y);
 		// }
-		printf("x = %i, y = %i, e->repx = %i, e->repy = %i\n", x, y, e->repx, e->repy);
+		// printf("x = %i, y = %i, e->repx = %i, e->repy = %i\n", x, y, e->repx, e->repy);
 		e->cursorx = x;
 		e->cursory = y;
 		e->convx = e->midx / (2.35 / e->zoom);
