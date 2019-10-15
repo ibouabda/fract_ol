@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/13 18:53:40 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/15 16:20:04 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void mandelbroth(float x, float y, t_env *e)
 	color = 255.0f / e->iter;
 	while (k < e->iter && ((sq = sqrt(zn1 * zn1 + zi1 *zi1)) <= 2))
 	{
-		zn = ABS(zn1);
-		zi = ABS(zi1);
+		zn = zn1;
+		zi = zi1;
 		zn1 = zn * zn - zi * zi + x;
 		zi1 = 2 * zn * zi + y;
 		k++;
@@ -204,6 +204,27 @@ void cross_string(t_env *e)
 	// printf("maxk = %i\n", maxk);
 }
 
+void ft_begin(t_env *e)// probleme avec le begin
+{
+	e->depx = 0;
+	e->depy = 0;
+	e->repx = e->midx;
+	e->repy = e->midy;
+	e->zoom = 1;
+	e->cursorx = -1;
+	e->cursory = -1;
+	e->convx = e->midx / 2.35;
+	e->convy = e->midy / 1.25;
+	e->cn = 0;
+	e->ci = 0;
+	e->r = 0;
+	e->g = 0;
+	e->b = 0;
+	e->neg = 0;
+	e->move = 0;
+	e->iter = 25;
+}
+
 void move(int keycode, t_env *e)
 {
 	if (keycode == RIGHT_ARROW)
@@ -242,18 +263,31 @@ int		ft_key_hook(int keycode,t_env *e)
 	// 	e->b = 0;
 	// }
 	else if (keycode == ONE)
+	{
 		e->fract = 1;
+		ft_begin(&e);
+	}
 	else if (keycode == TWO)
+	{
 		e->fract = 2;
+		ft_begin(&e);
+	}
 	else if (keycode == THREE)
+	{
 		e->fract = 3;
+		ft_begin(&e);
+	}
 	else if (keycode == FOUR)
+	{
 		e->fract = 4;
+		ft_begin(&e);
+	}
 	else if (keycode == PLUS)
 		e->iter += 10;
 	else if (keycode == MINUS && e->iter > 10)
 		e->iter -= 10;
 	// printf("e->iter = %i\n", e->iter);
+	// new_img(e);
 	new_img(e);
 	cross_string(e);
 	mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
@@ -290,8 +324,8 @@ int mouse_button(int button, int x, int y, t_env *e)
 		// else
 		// {
 		// printf("e->repx = %i, e->repy = %i\n", e->repx, e->repy);
-		e->repx = e->midx + (e->repx - x);
-		e->repy = e->midy + (e->repy - y);
+		e->repx = e->repx + (e->repx - x);
+		e->repy = e->repy + (e->repy - y);
 		// }
 		// printf("x = %i, y = %i, e->repx = %i, e->repy = %i\n", x, y, e->repx, e->repy);
 		e->cursorx = x;
@@ -327,25 +361,9 @@ int main(int argc, char **argv)
 	ft_check(&e, argc, argv);
 	new_window(&e);
 	img(&e);
-	e.depx = 0;
-	e.depy = 0;
 	e.midx = e.winx/2;
 	e.midy = e.winy/2;
-	e.repx = e.midx;
-	e.repy = e.midy;
-	e.zoom = 1;
-	e.cursorx = -1;
-	e.cursory = -1;
-	e.convx = e.midx / 2.35;
-	e.convy = e.midy / 1.25;
-	e.cn = 0;
-	e.ci = 0;
-	e.r = 0;
-	e.g = 0;
-	e.b = 0;
-	e.neg = 0;
-	e.move = 0;
-	e.iter = 25;
+	ft_begin(&e);
 	cross_string(&e);
 	// ft_fill_pixel(100, 100, &e);
 	mlx_put_image_to_window(e.mlx_ptr, e.win_ptr, e.img_ptr, 0, 0);
