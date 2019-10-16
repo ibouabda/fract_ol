@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/16 17:21:17 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/16 21:23:24 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,8 +339,8 @@ int mouse_button(int button, int x, int y, t_env *e)
 	if (button == 5 && e->zoom > 1)
 	{
 		e->zoom--;
-		e->repx = e->repx - x;
-		e->repy = e->repy - y;
+		e->repx = e->repx - (e->repx - x);
+		e->repy = e->repy - (e->repy - y);
 		e->convx = e->midx/ (2.35 / e->zoom);
 		e->convy = e->midy/ (1.25 / e->zoom);
 		new_img(e);
