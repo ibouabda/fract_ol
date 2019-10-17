@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 13:25:35 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/17 14:21:33 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/17 16:23:46 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,8 @@ int		ft_key_hook(int keycode, t_env *e)
 	{
 		ft_key_hook2(keycode, e);
 		if (e->bool == 1)
-		{
 			fractale_creation(e);
-		}
 	}
+	printf("ok\n");
 	return (0);
 }

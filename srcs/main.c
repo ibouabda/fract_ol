@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/17 15:52:12 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/17 16:25:58 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,30 +206,6 @@ void cross_string(t_env *e)
 	// printf("maxk = %i\n", maxk);
 }
 
-void ft_begin_inter(t_env *e)
-{
-	e->winx = 1280;
-	e->winy = 720;
-	e->midx = e->winx/2;
-	e->midy = e->winy/2;
-	e->fract = 2;
-	e->depx = 0;
-	e->depy = -40;
-	e->repx = 639;
-	e->repy = 654;
-	e->zoom = 2;
-	e->convx = e->midx / (2.35 / e->zoom);
-	e->convy = e->midy / (1.25 / e->zoom);
-	e->cn = 0.578906;
-	e->ci = -0.002778;
-	e->r = 0;
-	e->g = 0;
-	e->b = 0;
-	e->neg = 0;
-	e->move = 0;
-	e->iter = 90;
-}
-
 void ft_begin(t_env *e)
 {
 	e->depx = 0;
@@ -386,24 +362,11 @@ int mouse_button(int button, int x, int y, t_env *e)
 int main(int argc, char **argv)
 {
 	t_env e;
-	int fract;
-	int winx;
-	int winy;
 
 	ft_check(&e, argc, argv);
 	new_window(&e);
-	img(&e);
 	e.bool = 0;
-	e.midx = e.winx/2;
-	e.midy = e.winy/2;
-	winx = e.winx;
-	winy = e.winy;
-	fract = e.fract;
-	ft_begin_inter(&e);
-	cross_string(&e);
-	e.fract = fract;
-	e.winx = winx;
-	e.winy = winy;
+	img(&e);
 	e.esc_img_ptr = e.img_ptr;
 	mlx_put_image_to_window(e.mlx_ptr, e.win_ptr, e.esc_img_ptr, 0, 0);
 	interface(&e);
