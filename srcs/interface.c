@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 10:08:26 by idris             #+#    #+#             */
-/*   Updated: 2019/10/17 14:49:15 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/17 19:02:08 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,18 @@ void	interface(t_env *e)
 	e->winy / 4, 0xffffff, BEGIN);
 	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(MOVE) * 5,\
 	e->winy / 4 + a * 2, 0xffffff, MOVE);
+	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(VAR) * 5,\
+	e->winy / 4 + a * 3, 0xffffff, VAR);
 	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(ZOOM) * 5,\
-	e->winy / 4 + a * 3, 0xffffff, ZOOM);
+	e->winy / 4 + a * 4, 0xffffff, ZOOM);
 	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(COLORS) * 5,\
-	e->winy / 4 + a * 4, 0xffffff, COLORS);
+	e->winy / 4 + a * 5, 0xffffff, COLORS);
 	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(FRACTAL) * 5,\
-	e->winy / 4 + a * 5, 0xffffff, FRACTAL);
+	e->winy / 4 + a * 6, 0xffffff, FRACTAL);
 	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(PAUSE) * 5,\
-	e->winy / 4 + a * 6, 0xffffff, PAUSE);
+	e->winy / 4 + a * 7, 0xffffff, PAUSE);
 	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(RESET) * 5,\
-	e->winy / 4 + a * 7, 0xffffff, RESET);
+	e->winy / 4 + a * 8, 0xffffff, RESET);
 	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(QUIT) * 5,\
-	e->winy / 4 + a * 8, 0xffffff, QUIT);
+	e->winy / 4 + a * 10, 0xffffff, QUIT);
 }

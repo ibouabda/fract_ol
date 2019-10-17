@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/17 15:22:17 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/17 19:06:01 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@
 # define TITLE "FRACT_OL"
 # define BEGIN "Let's Play : Press On ENTER"
 # define MOVE "Move : Arrows"
+# define VAR "Activate/Desactivate Variation : Right Click"
 # define ZOOM "Zoom/Unzoom : Mouse Wheel"
 # define COLORS "Choose Colors : R, G, B, N"
 # define FRACTAL "Choose Fractal : 1, 2, 3, 4"
@@ -135,5 +136,11 @@ void			interface(t_env *e);
 void			move(int keycode, t_env *e);
 int				ft_key_hook(int keycode, t_env *e);
 void			ft_begin(t_env *e);
+void			mandelbroth(double x, double y, t_env *e);
+int				julia(double x, double y, t_env *e);
+void			burning_ship(double x, double y, t_env *e);
+int				burning_ship_move(double x, double y, t_env *e);
+int				ft_motion(int x, int y, t_env *e);
+int				mouse_button(int button, int x, int y, t_env *e);
 #endif
 

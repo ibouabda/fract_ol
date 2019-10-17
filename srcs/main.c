@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/17 18:02:58 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/17 19:06:33 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,118 +63,6 @@ void	ft_check(t_env *e, int argc, char **argv)
 	ft_check_frac(e, argv);
 }
 
-void mandelbroth(double x, double y, t_env *e)
-{
-	int k;
-	double zi;
-	double zn;
-	double zi1;
-	double zn1;
-	double color;
-	double sq;
-
-	k = 0;
-	zi1 = y;
-	zn1 = x;
-	color = 255.0f / e->iter;
-	while (k < e->iter && ((sq = sqrt(zn1 * zn1 + zi1 *zi1)) <= 2))
-	{
-		zn = zn1;
-		zi = zi1;
-		zn1 = zn * zn - zi * zi + x;
-		zi1 = 2 * zn * zi + y;
-		k++;
-	}
-	// printf("zn1 = %f, zi1 = %f\n", zn1, zi1);
-	if (sq >= 2)
-		ft_fill_pixel_color(e->x, e->y, (double)((double)k) * color, e);
-}
-
-int julia(double x, double y, t_env *e)
-{
-	int k;
-	double zi;
-	double zn;
-	double zi1;
-	double zn1;
-	double color;
-	double sq;
-
-	k = 0;
-	color = 255.0f / (e->iter);
-	zi1 = y;
-	zn1 = x;
-	while (k < e->iter && ((sq = sqrt(zn1 * zn1 + zi1 *zi1)) <= 2))
-	{
-		zn = zn1;
-		zi = zi1;
-		zn1 = zn * zn - zi * zi + e->cn;
-		zi1 = 2 * zn * zi + e->ci;
-		k++;
-	}
-	// printf("zn1 = %f, zi1 = %f\n", zn1, zi1);
-	// printf("e->iter = %i, k = %i\n", e->iter, k);
-	if (sq >= 2)
-		ft_fill_pixel_color(e->x, e->y, (double)((double)k ) * color, e);
-	return (k);
-}
-
-void burning_ship(double x, double y, t_env *e)
-{
-	int k;
-	double zi;
-	double zn;
-	double zi1;
-	double zn1;
-	double color;
-	double sq;
-
-	k = 0;
-	zi1 = y;
-	zn1 = x;
-	color = 255.0f / e->iter;
-	while (k < e->iter && ((sq = sqrt(zn1 * zn1 + zi1 *zi1)) <= 2))
-	{
-		zn = ABS(zn1);
-		zi = ABS(zi1);
-		zn1 = zn * zn - zi * zi + x;
-		zi1 = 2 * zn * zi + y;
-		k++;
-	}
-	// printf("zn1 = %f, zi1 = %f\n", zn1, zi1);
-	if (sq >= 2)
-		ft_fill_pixel_color(e->x, e->y, (double)((double)k) * color, e);
-}
-
-int burning_ship_move(double x, double y, t_env *e)
-{
-	int k;
-	double zi;
-	double zn;
-	double zi1;
-	double zn1;
-	double color;
-	double sq;
-
-	k = 0;
-	color = 255.0f / (e->iter);
-	zi1 = y;
-	zn1 = x;
-	while (k < e->iter && ((sq = sqrt(zn1 * zn1 + zi1 *zi1)) <= 2))
-	{
-		zn = ABS(zn1);
-		zi = ABS(zi1);
-		zn1 = zn * zn - zi * zi + e->cn;
-		zi1 = 2 * zn * zi + e->ci;
-		k++;
-	}
-	// printf("zn1 = %f, zi1 = %f\n", zn1, zi1);
-	// printf("e->iter = %i, k = %i\n", e->iter, k);
-	if (sq >= 2)
-		ft_fill_pixel_color(e->x, e->y, (double)((double)k ) * color, e);
-	return (k);
-}
-
 void cross_string(t_env *e)
 {
 	double x0;
@@ -188,8 +76,6 @@ void cross_string(t_env *e)
 		e->x = 0;
 		while (e->x < e->winx)
 		{
-			// if (e->y < 50)
-			// 	dprintf(fd, "x0 = %f, y0 = %f\n", x0, y0);
 			x0 = (double)(e->x - (e->repx) + e->depx) / (double)e->convx;
 			y0 = (double)(e->y - (e->repy) + e->depy) / (double)e->convy;
 			if (e->fract == 1)
@@ -206,15 +92,14 @@ void cross_string(t_env *e)
 		}
 		e->y++;
 	}
-	// printf("maxk = %i\n", maxk);
 }
 
 void ft_begin(t_env *e)
 {
 	e->depx = 0;
 	e->depy = 0;
-	e->midx = e->winx/2;
-	e->midy = e->winy/2;
+	e->midx = e->winx / 2;
+	e->midy = e->winy / 2;
 	e->repx = e->midx;
 	e->repy = e->midy;
 	e->zoom = 1;
@@ -228,78 +113,11 @@ void ft_begin(t_env *e)
 	e->g = 0;
 	e->b = 0;
 	e->neg = 0;
-	e->move = 0;
+	e->move = 1;
 	e->iter = 25;
 }
 
-void	move(int keycode, t_env *e)
-{
-	if (keycode == RIGHT_ARROW)
-		e->depx += 10;
-	else if (keycode == LEFT_ARROW)
-		e->depx -= 10;
-	else if (keycode == UP_ARROW)
-		e->depy -= 10;
-	else if (keycode == DOWN_ARROW)
-		e->depy += 10;
-	// printf("e->depx = %i, e->depy = %i\n", e->depx, e->depy);
-}
 
-int ft_motion(int x, int y, t_env *e)
-{
-	if (e->move == 1 && (e->fract == 2 || e->fract == 4)\
-	&& x < e->winx && y < e->winy && x > 0 && y > 0)
-	{
-		e->cn = (1.5 * (double)(x - 1.5 * e->midx) / (e->winx / 2));
-		e->ci = (double)(y - e->midy) / (e->winy / 2);
-		// printf("e->cn = %f, e->ci = %f\n", e->cn, e->ci);
-		fractale_creation(e);
-	}
-	return (0);
-}
-
-int mouse_button(int button, int x, int y, t_env *e)
-{
-	(void)x;
-	(void)y;
-	
-	if (button == 4)
-	{
-		e->zoom = e->zoom * 2;
-		// if (e->cursorx == x && e->cursory == y)
-		// {
-		// 	e->repx = e->midx;
-		// 	e->repy = e->midy; //mammmmmaaaaaaaaa
-		// }
-		// else
-		// {
-		// printf("e->repx = %i, e->repy = %i\n", e->repx, e->repy);
-		// e->repxlast = e->repx;
-		// e->repylast = e->repy;
-		e->repx = e->repx + (e->repx - (x + e->depx));
-		e->repy = e->repy + (e->repy - (y + e->depy));
-		// }
-		// printf("x = %i, y = %i, e->repx = %i, e->repy = %i\n", x, y, e->repx, e->repy);
-		e->cursorx = x;
-		e->cursory = y;
-		e->convx = e->midx / (2.35 / e->zoom);
-		e->convy = e->midy / (1.25 / e->zoom);
-		fractale_creation(e);
-	}
-	if (button == 5 && e->zoom > 1)
-	{
-		e->zoom = 1;
-		e->repx = e->midx;
-		e->repy = e->midy;
-		e->convx = e->midx/ (2.35 / e->zoom);
-		e->convy = e->midy/ (1.25 / e->zoom);
-		fractale_creation(e);
-	}
-	if (button == 2)
-		BOOL(e->move);
-	// printf("e->zoom = %lli e->repx = %lli e->repy = %lli\n", e->zoom, e->repx, e->repy);
-	return (0);
-}
 
 int main(int argc, char **argv)
 {

@@ -3,14 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 13:25:35 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/17 17:56:43 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/17 19:04:35 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fractol.h"
+
+void	move(int keycode, t_env *e)
+{
+	if (keycode == RIGHT_ARROW)
+		e->depx += 10;
+	else if (keycode == LEFT_ARROW)
+		e->depx -= 10;
+	else if (keycode == UP_ARROW)
+		e->depy -= 10;
+	else if (keycode == DOWN_ARROW)
+		e->depy += 10;
+}
+
+int ft_motion(int x, int y, t_env *e)
+{
+	if (e->move == 1 && (e->fract == 2 || e->fract == 4)\
+	&& x < e->winx && y < e->winy && x > 0 && y > 0 && e->bool == 1)
+	{
+		e->cn = (1.5 * (double)(x - 1.5 * e->midx) / (e->winx / 2));
+		e->ci = (double)(y - e->midy) / (e->winy / 2);
+		fractale_creation(e);
+	}
+	return (0);
+}
+
+int mouse_button(int button, int x, int y, t_env *e)
+{
+	(void)x;
+	(void)y;
+	
+	if (button == 4)
+	{
+		e->zoom = e->zoom * 2;
+		e->repx = e->repx + (e->repx - (x + e->depx));
+		e->repy = e->repy + (e->repy - (y + e->depy));
+		e->cursorx = x;
+		e->cursory = y;
+		e->convx = e->midx / (2.35 / e->zoom);
+		e->convy = e->midy / (1.25 / e->zoom);
+		fractale_creation(e);
+	}
+	if (button == 5 && e->zoom > 1)
+	{
+		e->zoom = 1;
+		e->repx = e->midx;
+		e->repy = e->midy;
+		e->convx = e->midx/ (2.35 / e->zoom);
+		e->convy = e->midy/ (1.25 / e->zoom);
+		fractale_creation(e);
+	}
+	if (button == 2)
+		BOOL(e->move);
+	return (0);
+}
 
 void	ft_key_hook2(int keycode, t_env *e)
 {

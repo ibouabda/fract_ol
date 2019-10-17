@@ -6,7 +6,7 @@
 /*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 11:29:23 by retounsi          #+#    #+#             */
-/*   Updated: 2019/10/17 10:27:19 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/17 19:07:04 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 // 	}
 // }
 
-void	ft_fill_pixel(int x, int y, t_env *e)
+void	ft_fill_pixel(int x, int y, t_env *e) // a supprimer
 {
 	int	pos;
 
