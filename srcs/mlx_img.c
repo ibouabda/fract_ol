@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 11:29:23 by retounsi          #+#    #+#             */
-/*   Updated: 2019/10/16 16:36:02 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/17 10:27:19 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../incl/fractol.h"
 
 // void	ft_find_color(t_point a, t_env *e)
 // {
@@ -51,6 +51,15 @@ void	ft_fill_pixel(int x, int y, t_env *e)
 	e->img_string[pos] = (char)255;
 	e->img_string[pos + 1] = (char)255;
 	e->img_string[pos + 2] = (char)255;
+}
+
+
+void fractale_creation(t_env *e)
+{
+	new_img(e);
+	cross_string(e);
+	mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
+	interface_in_game(e);
 }
 
 void	ft_fill_pixel_color(int x, int y, int color, t_env *e)

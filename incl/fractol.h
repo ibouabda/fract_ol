@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/13 18:52:33 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/17 10:26:29 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ typedef struct	s_env
 	int		y;
 	int		mx;
 	int		my;
+	int		repxlast;
+	int		repylast;
 	void	*mlx_ptr;
 	void	*win_ptr;
 	// void	*esc_img_ptr;
@@ -119,6 +121,8 @@ void			img(t_env *e);
 void			new_img(t_env *e);
 void			ft_fill_pixel(int x, int y, t_env *e);
 void			ft_fill_pixel_color(int x, int y, int color, t_env *e);
-
+void			interface_in_game(t_env *e);
+void			cross_string(t_env *e);
+void			fractale_creation(t_env *e);
 #endif
 

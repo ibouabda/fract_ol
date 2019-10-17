@@ -6,13 +6,13 @@
 /*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/16 21:23:24 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/17 10:31:40 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../incl/fractol.h"
 
-ft_check_frac(t_env *e, char **argv)
+void ft_check_frac(t_env *e, char **argv)
 {
 	if (ft_strcmp(argv[1], "mandelbroth") == 0)
 		e->fract = 1;
@@ -288,9 +288,7 @@ int		ft_key_hook(int keycode,t_env *e)
 		e->iter -= 10;
 	// printf("e->iter = %i\n", e->iter);
 	// new_img(e);
-	new_img(e);
-	cross_string(e);
-	mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
+	fractale_creation(e);
 	return (0);
 }
 
@@ -302,9 +300,7 @@ int ft_motion(int x, int y, t_env *e)
 		e->cn = (1.5 * (double)(x - 1.5 * e->midx) / (e->winx / 2));
 		e->ci = (double)(y - e->midy) / (e->winy / 2);
 		// printf("x = %f, y = %f\n", e->cn, e->ci);
-		new_img(e);
-		cross_string(e);
-		mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
+		fractale_creation(e);
 	}
 	return (0);
 }
@@ -313,6 +309,7 @@ int mouse_button(int button, int x, int y, t_env *e)
 {
 	(void)x;
 	(void)y;
+	
 	if (button == 4)
 	{
 		e->zoom = e->zoom * 2;
@@ -324,28 +321,26 @@ int mouse_button(int button, int x, int y, t_env *e)
 		// else
 		// {
 		// printf("e->repx = %i, e->repy = %i\n", e->repx, e->repy);
-		e->repx = e->repx + (e->repx - x);
-		e->repy = e->repy + (e->repy - y);
+		// e->repxlast = e->repx;
+		// e->repylast = e->repy;
+		e->repx = e->repx + (e->repx - (x + e->depx));
+		e->repy = e->repy + (e->repy - (y + e->depy));
 		// }
 		// printf("x = %i, y = %i, e->repx = %i, e->repy = %i\n", x, y, e->repx, e->repy);
 		e->cursorx = x;
 		e->cursory = y;
 		e->convx = e->midx / (2.35 / e->zoom);
 		e->convy = e->midy / (1.25 / e->zoom);
-		new_img(e);
-		cross_string(e);
-		mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
+		fractale_creation(e);
 	}
 	if (button == 5 && e->zoom > 1)
 	{
-		e->zoom--;
-		e->repx = e->repx - (e->repx - x);
-		e->repy = e->repy - (e->repy - y);
+		e->zoom = 1;
+		e->repx = e->midx;
+		e->repy = e->midy;
 		e->convx = e->midx/ (2.35 / e->zoom);
 		e->convy = e->midy/ (1.25 / e->zoom);
-		new_img(e);
-		cross_string(e);
-		mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
+		fractale_creation(e);
 	}
 	if (button == 2)
 		BOOL(e->move);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+         #
+#    By: idris <idris@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/11 17:46:29 by idris             #+#    #+#              #
-#    Updated: 2019/10/15 15:35:05 by ibouabda         ###   ########.fr        #
+#    Updated: 2019/10/17 10:30:07 by idris            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ NAME = fractol
 
 ### INCLUDES ###
 
-SRC_NAME = main.c mlx_img.c
+SRC_NAME = main.c mlx_img.c interface.c
 SRC_PATH = srcs
 OBJ_PATH = objs
 HEADER = incl
