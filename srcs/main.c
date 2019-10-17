@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/17 10:31:40 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/17 15:52:12 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ void	ft_check(t_env *e, int argc, char **argv)
 		e->winy = ft_atoi(argv[3]);
 		if (e->winx < 400 || e->winy < 300 || e->winx > 2560 || e->winy > 1440)
 		{
-			ft_putendl("usage: ./fractol fractale_name [400 <= weidth_size <= 2560]\
-[800 <= long_size <= 1440]");
+			ft_putendl("usage: ./fractol fractale_name [weidth_size]\
+[long_size]");
+			ft_putendl("Choose one of this resolutions:\n->800 * 450\n\
+->1280 * 720\n->1920 * 1080\n->2560 * 1440\n");
 			exit(1);
 		}
 	}
@@ -204,12 +206,38 @@ void cross_string(t_env *e)
 	// printf("maxk = %i\n", maxk);
 }
 
-void ft_begin(t_env *e)// probleme avec le begin
+void ft_begin_inter(t_env *e)
+{
+	e->winx = 1280;
+	e->winy = 720;
+	e->midx = e->winx/2;
+	e->midy = e->winy/2;
+	e->fract = 2;
+	e->depx = 0;
+	e->depy = -40;
+	e->repx = 639;
+	e->repy = 654;
+	e->zoom = 2;
+	e->convx = e->midx / (2.35 / e->zoom);
+	e->convy = e->midy / (1.25 / e->zoom);
+	e->cn = 0.578906;
+	e->ci = -0.002778;
+	e->r = 0;
+	e->g = 0;
+	e->b = 0;
+	e->neg = 0;
+	e->move = 0;
+	e->iter = 90;
+}
+
+void ft_begin(t_env *e)
 {
 	e->depx = 0;
 	e->depy = 0;
 	e->repx = e->midx;
 	e->repy = e->midy;
+	e->midx = e->winx/2;
+	e->midy = e->winy/2;
 	e->zoom = 1;
 	e->cursorx = -1;
 	e->cursory = -1;
@@ -220,7 +248,7 @@ void ft_begin(t_env *e)// probleme avec le begin
 	e->r = 0;
 	e->g = 0;
 	e->b = 0;
-	e->neg = 1;
+	e->neg = 0;
 	e->move = 0;
 	e->iter = 25;
 }
@@ -235,62 +263,69 @@ void	move(int keycode, t_env *e)
 		e->depy -= 10;
 	else if (keycode == DOWN_ARROW)
 		e->depy += 10;
+	// printf("e->depx = %i, e->depy = %i\n", e->depx, e->depy);
 }
 
-int		ft_key_hook(int keycode,t_env *e)
-{
-	if (keycode == ESC)
-	{
-		mlx_destroy_image(e->mlx_ptr,e->img_ptr);
-		// mlx_destroy_window(e->mlx_ptr, e->img_ptr);
-		exit(0);
-	}
-	else if (keycode == RIGHT_ARROW || keycode == LEFT_ARROW\
-	|| keycode == UP_ARROW || keycode == DOWN_ARROW)
-		move(keycode, e);
-	else if (keycode == R)
-		BOOL(e->r);
-	else if (keycode == G)
-		BOOL(e->g);
-	else if (keycode == B)
-		BOOL(e->b);
-	else if (keycode == N)
-		BOOL(e->neg);
-	// if (keycode == R)
-	// {
-	// 	e->r = 0;
-	// 	e->g = 0;
-	// 	e->b = 0;
-	// }
-	else if (keycode == ONE)
-	{
-		e->fract = 1;
-		ft_begin(e);
-	}
-	else if (keycode == TWO)
-	{
-		e->fract = 2;
-		ft_begin(e);
-	}
-	else if (keycode == THREE)
-	{
-		e->fract = 3;
-		ft_begin(e);
-	}
-	else if (keycode == FOUR)
-	{
-		e->fract = 4;
-		ft_begin(e);
-	}
-	else if (keycode == PLUS)
-		e->iter += 10;
-	else if (keycode == MINUS && e->iter > 10)
-		e->iter -= 10;
-	// printf("e->iter = %i\n", e->iter);
-	// new_img(e);
-	fractale_creation(e);
-	return (0);
-}
+// int		ft_key_hook(int keycode,t_env *e)
+// {
+// 	if (keycode == ESC && e->pause == 1)
+// 	{
+// 		mlx_destroy_image(e->mlx_ptr,e->img_ptr);
+// 		mlx_destroy_image(e->mlx_ptr,e->esc_img_ptr);
+// 		// mlx_destroy_window(e->mlx_ptr, e->img_ptr);
+// 		exit(0);
+// 	}
+// 	else if (keycode == ESC && e->pause == 0)
+// 	{
+// 		e->pause = 1;
+// 		mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->esc_img_ptr, 0, 0);
+// 	}
+// 	else if (keycode == RIGHT_ARROW || keycode == LEFT_ARROW\
+// 	|| keycode == UP_ARROW || keycode == DOWN_ARROW)
+// 		move(keycode, e);
+// 	else if (keycode == R)
+// 		BOOL(e->r);
+// 	else if (keycode == G)
+// 		BOOL(e->g);
+// 	else if (keycode == B)
+// 		BOOL(e->b);
+// 	else if (keycode == N)
+// 		BOOL(e->neg);
+// 	// if (keycode == R)
+// 	// {
+// 	// 	e->r = 0;
+// 	// 	e->g = 0;
+// 	// 	e->b = 0;
+// 	// }
+// 	else if (keycode == ONE)
+// 	{
+// 		e->fract = 1;
+// 		ft_begin(e);
+// 	}
+// 	else if (keycode == TWO)
+// 	{
+// 		e->fract = 2;
+// 		ft_begin(e);
+// 	}
+// 	else if (keycode == THREE)
+// 	{
+// 		e->fract = 3;
+// 		ft_begin(e);
+// 	}
+// 	else if (keycode == FOUR)
+// 	{
+// 		e->fract = 4;
+// 		ft_begin(e);
+// 	}
+// 	else if (keycode == PLUS)
+// 		e->iter += 5;
+// 	else if (keycode == MINUS && e->iter > 10)
+// 		e->iter -= 5;
+// 	// printf("e->iter = %i\n", e->iter);
+// 	// new_img(e);
+// 	fractale_creation(e);
+// 	return (0);
+// }
 
 int ft_motion(int x, int y, t_env *e)
 {
@@ -299,7 +334,7 @@ int ft_motion(int x, int y, t_env *e)
 	{
 		e->cn = (1.5 * (double)(x - 1.5 * e->midx) / (e->winx / 2));
 		e->ci = (double)(y - e->midy) / (e->winy / 2);
-		// printf("x = %f, y = %f\n", e->cn, e->ci);
+		// printf("e->cn = %f, e->ci = %f\n", e->cn, e->ci);
 		fractale_creation(e);
 	}
 	return (0);
@@ -344,24 +379,36 @@ int mouse_button(int button, int x, int y, t_env *e)
 	}
 	if (button == 2)
 		BOOL(e->move);
+	// printf("e->zoom = %lli e->repx = %lli e->repy = %lli\n", e->zoom, e->repx, e->repy);
 	return (0);
 }
 
 int main(int argc, char **argv)
 {
 	t_env e;
-	// int fd;
+	int fract;
+	int winx;
+	int winy;
 
-	// fd = open("test", O_RDWR);
 	ft_check(&e, argc, argv);
 	new_window(&e);
 	img(&e);
+	e.bool = 0;
 	e.midx = e.winx/2;
 	e.midy = e.winy/2;
-	ft_begin(&e);
+	winx = e.winx;
+	winy = e.winy;
+	fract = e.fract;
+	ft_begin_inter(&e);
 	cross_string(&e);
-	// ft_fill_pixel(100, 100, &e);
-	mlx_put_image_to_window(e.mlx_ptr, e.win_ptr, e.img_ptr, 0, 0);
+	e.fract = fract;
+	e.winx = winx;
+	e.winy = winy;
+	e.esc_img_ptr = e.img_ptr;
+	mlx_put_image_to_window(e.mlx_ptr, e.win_ptr, e.esc_img_ptr, 0, 0);
+	interface(&e);
+	img(&e);
+	ft_begin(&e);
 	mlx_hook(e.win_ptr, 2, (1 < 0), ft_key_hook, &e);
 	mlx_mouse_hook(e.win_ptr, mouse_button, &e);
 	mlx_hook(e.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK, ft_motion, &e);

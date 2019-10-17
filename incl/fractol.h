@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/17 10:26:29 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/17 15:22:17 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define Z 6
 # define MINUS 27
 # define PLUS 24
+# define ENTER 36
 
 # define ONE 18
 # define TWO 19
@@ -72,6 +73,16 @@
 # define KEY_PRESS_MASK (1L<<0)
 # define KEY_PRESS 2
 
+# define TITLE "FRACT_OL"
+# define BEGIN "Let's Play : Press On ENTER"
+# define MOVE "Move : Arrows"
+# define ZOOM "Zoom/Unzoom : Mouse Wheel"
+# define COLORS "Choose Colors : R, G, B, N"
+# define FRACTAL "Choose Fractal : 1, 2, 3, 4"
+# define PAUSE "Pause : ESC"
+# define RESET "Reset : Z"
+# define QUIT "If You Wanna Quit The Game Press On ESC"
+
 # include "../libft/incl/libft.h"
 # include "../minilibx_macos/mlx.h"
 # include <fcntl.h>
@@ -80,15 +91,16 @@
 
 typedef struct	s_env
 {
+	int		bool;
 	int		cursorx;
 	int		cursory;
 	int		depx;
 	int		depy;
-	int		repx;
-	int		repy;
-	int		zoom;
+	long long int		repx;
+	long long int		repy;
+	long long int		zoom;
 	int		iter;
-	int		move;
+	int		move; //deplsouris
 	int		r;
 	int		g;
 	int		b;
@@ -100,18 +112,13 @@ typedef struct	s_env
 	float	convx;
 	float	convy;
 	int		fract;
-	float	var;
 	float	ci;
 	float	cn;
 	int		x;
 	int		y;
-	int		mx;
-	int		my;
-	int		repxlast;
-	int		repylast;
 	void	*mlx_ptr;
 	void	*win_ptr;
-	// void	*esc_img_ptr;
+	void	*esc_img_ptr;
 	void	*img_ptr;
 	char	*img_string;
 }				t_env;
@@ -124,5 +131,9 @@ void			ft_fill_pixel_color(int x, int y, int color, t_env *e);
 void			interface_in_game(t_env *e);
 void			cross_string(t_env *e);
 void			fractale_creation(t_env *e);
+void			interface(t_env *e);
+void			move(int keycode, t_env *e);
+int				ft_key_hook(int keycode, t_env *e);
+void			ft_begin(t_env *e);
 #endif
 
