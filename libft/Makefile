@@ -6,7 +6,7 @@
 #    By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 21:31:16 by ibouabda          #+#    #+#              #
-#    Updated: 2019/10/15 15:35:31 by ibouabda         ###   ########.fr        #
+#    Updated: 2019/10/17 17:25:23 by ibouabda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ WHITE       = \033[1;37m
 all: tmp $(NAME)
 
 $(NAME): $(OBJS)
-	@echo "$(YELLOW)Creating libft files ...$(NOC)"
+	@echo "$(YELLOW)Checking libft files ...$(NOC)"
 	@ar rc $(NAME).a $(OBJS)
 	@ranlib $(NAME).a
 	@echo "$(GREEN)Project successfully compiled !"

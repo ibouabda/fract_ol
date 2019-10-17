@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/17 16:25:58 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/17 18:02:58 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ void	ft_check(t_env *e, int argc, char **argv)
 	{
 		e->winx = ft_atoi(argv[2]);
 		e->winy = ft_atoi(argv[3]);
-		if (e->winx < 400 || e->winy < 300 || e->winx > 2560 || e->winy > 1440)
+		if (!((e->winx == 800 && e->winy == 450) || (e->winx == 1280 && \
+		e->winy == 720) || (e->winx == 1920 && e->winy == 1080) || \
+		(e->winx == 2560 && e->winy == 1440)))
 		{
 			ft_putendl("usage: ./fractol fractale_name [weidth_size]\
 [long_size]");
-			ft_putendl("Choose one of this resolutions:\n->800 * 450\n\
-->1280 * 720\n->1920 * 1080\n->2560 * 1440\n");
+			ft_putendl("Choose one of this resolutions \
+:\n->800 450\n->1280 720\n->1920 1080\n->2560 1440");
 			exit(1);
 		}
 	}
@@ -54,7 +56,8 @@ void	ft_check(t_env *e, int argc, char **argv)
 	{
 		ft_putendl("usage: ./fractol fractale_name [400 <= weidth_size <= 2560]\
 [800 <= long_size <= 1440]");
-		// ft_putendl("choose one of this fractals:\n->mandelbroth\n->julia");
+		ft_putendl("Choose one of this fractals:\n->mandelbroth\n->julia\n\
+->burnship\n->burnship_mv\n");
 		exit(1);
 	}
 	ft_check_frac(e, argv);
@@ -210,10 +213,10 @@ void ft_begin(t_env *e)
 {
 	e->depx = 0;
 	e->depy = 0;
-	e->repx = e->midx;
-	e->repy = e->midy;
 	e->midx = e->winx/2;
 	e->midy = e->winy/2;
+	e->repx = e->midx;
+	e->repy = e->midy;
 	e->zoom = 1;
 	e->cursorx = -1;
 	e->cursory = -1;
@@ -241,67 +244,6 @@ void	move(int keycode, t_env *e)
 		e->depy += 10;
 	// printf("e->depx = %i, e->depy = %i\n", e->depx, e->depy);
 }
-
-// int		ft_key_hook(int keycode,t_env *e)
-// {
-// 	if (keycode == ESC && e->pause == 1)
-// 	{
-// 		mlx_destroy_image(e->mlx_ptr,e->img_ptr);
-// 		mlx_destroy_image(e->mlx_ptr,e->esc_img_ptr);
-// 		// mlx_destroy_window(e->mlx_ptr, e->img_ptr);
-// 		exit(0);
-// 	}
-// 	else if (keycode == ESC && e->pause == 0)
-// 	{
-// 		e->pause = 1;
-// 		mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->esc_img_ptr, 0, 0);
-// 	}
-// 	else if (keycode == RIGHT_ARROW || keycode == LEFT_ARROW\
-// 	|| keycode == UP_ARROW || keycode == DOWN_ARROW)
-// 		move(keycode, e);
-// 	else if (keycode == R)
-// 		BOOL(e->r);
-// 	else if (keycode == G)
-// 		BOOL(e->g);
-// 	else if (keycode == B)
-// 		BOOL(e->b);
-// 	else if (keycode == N)
-// 		BOOL(e->neg);
-// 	// if (keycode == R)
-// 	// {
-// 	// 	e->r = 0;
-// 	// 	e->g = 0;
-// 	// 	e->b = 0;
-// 	// }
-// 	else if (keycode == ONE)
-// 	{
-// 		e->fract = 1;
-// 		ft_begin(e);
-// 	}
-// 	else if (keycode == TWO)
-// 	{
-// 		e->fract = 2;
-// 		ft_begin(e);
-// 	}
-// 	else if (keycode == THREE)
-// 	{
-// 		e->fract = 3;
-// 		ft_begin(e);
-// 	}
-// 	else if (keycode == FOUR)
-// 	{
-// 		e->fract = 4;
-// 		ft_begin(e);
-// 	}
-// 	else if (keycode == PLUS)
-// 		e->iter += 5;
-// 	else if (keycode == MINUS && e->iter > 10)
-// 		e->iter -= 5;
-// 	// printf("e->iter = %i\n", e->iter);
-// 	// new_img(e);
-// 	fractale_creation(e);
-// 	return (0);
-// }
 
 int ft_motion(int x, int y, t_env *e)
 {

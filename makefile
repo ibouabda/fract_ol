@@ -6,7 +6,7 @@
 #    By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/11 17:46:29 by idris             #+#    #+#              #
-#    Updated: 2019/10/17 13:45:40 by ibouabda         ###   ########.fr        #
+#    Updated: 2019/10/17 17:25:11 by ibouabda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ WHITE       = \033[1;37m
 all: tmp $(NAME)
 
 $(NAME): $(OBJS)
-	@echo "$(GREEN)Creating lib files ...$(NOC)"
+	@echo "$(GREEN)Checking lib files ...$(NOC)"
 	@make -C $(LIBFT)
 	@make -C $(LIBMLX)
 	@$(CC) -w $(CFLAGS) -L $(LIBFT) -o $@ $^ $(MLXFLAGS) -L $(LIBMLX) minilibx_macos/libmlx.a libft/libft.a
