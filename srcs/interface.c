@@ -6,11 +6,24 @@
 /*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 10:08:26 by idris             #+#    #+#             */
-/*   Updated: 2019/10/17 19:02:08 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:47:59 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fractol.h"
+
+void ft_putusage(int a)
+{
+	ft_putendl("usage: ./fractol fractale_name [weidth_size]\
+[long_size]");
+	ft_putendl("Choose one of this fractals:\n->mandelbroth\n->julia\n\
+->burnship\n->burnship_mv");
+	if (a == 1)
+	{
+		ft_putendl("Choose one of this resolutions \
+:\n->800 450\n->1280 720\n->1920 1080\n->2560 1440");
+	}
+}
 
 void interface_in_game(t_env *e)
 {
@@ -20,24 +33,13 @@ void interface_in_game(t_env *e)
 	striter = ft_itoa(e->iter);
 	todel = ft_strjoin("Iter : ", striter); //memory "Iter:" ???"
 	if (e->neg == 1)
-	{
 		mlx_string_put(e->mlx_ptr, e->win_ptr, 5, 5, 0x808080, "N");
-	}
-
 	if (e->r == 1)
-	{
 		mlx_string_put(e->mlx_ptr, e->win_ptr, 15, 5, 0xFF0000, "R");
-	}
-
 	if (e->g == 1)
-	{
 		mlx_string_put(e->mlx_ptr, e->win_ptr, 25, 5, 0x008000, "G");
-	}
-
 	if (e->b == 1)
-	{
 		mlx_string_put(e->mlx_ptr, e->win_ptr, 35, 5, 0x0000FF, "B");
-	}
 	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx - 100, 5, 0x808080, todel);
 	ft_strdel(&striter);
 	ft_strdel(&todel);

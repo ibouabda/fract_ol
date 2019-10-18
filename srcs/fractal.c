@@ -6,7 +6,7 @@
 /*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 18:53:20 by idris             #+#    #+#             */
-/*   Updated: 2019/10/17 19:02:05 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:48:36 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,12 @@ int burning_ship_move(double x, double y, t_env *e)
 	if (sq >= 2)
 		ft_fill_pixel_color(e->x, e->y, (double)((double)k ) * color, e);
 	return (k);
+}
+
+void fractale_creation(t_env *e)
+{
+	new_img(e);
+	cross_string(e);
+	mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
+	interface_in_game(e);
 }

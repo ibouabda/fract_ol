@@ -6,7 +6,7 @@
 /*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/17 19:06:33 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:30:52 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void ft_check_frac(t_env *e, char **argv)
 	else
 	{
 		ft_putendl("Choose one of this fractals:\n->mandelbroth\n->julia\n\
-->burnship\n->burnship_mv\n");
+->burnship\n->burnship_mv");
 		exit(1);
 	}
 }
@@ -45,19 +45,13 @@ void	ft_check(t_env *e, int argc, char **argv)
 		e->winy == 720) || (e->winx == 1920 && e->winy == 1080) || \
 		(e->winx == 2560 && e->winy == 1440)))
 		{
-			ft_putendl("usage: ./fractol fractale_name [weidth_size]\
-[long_size]");
-			ft_putendl("Choose one of this resolutions \
-:\n->800 450\n->1280 720\n->1920 1080\n->2560 1440");
+			ft_putusage(1);
 			exit(1);
 		}
 	}
 	else
 	{
-		ft_putendl("usage: ./fractol fractale_name [400 <= weidth_size <= 2560]\
-[800 <= long_size <= 1440]");
-		ft_putendl("Choose one of this fractals:\n->mandelbroth\n->julia\n\
-->burnship\n->burnship_mv\n");
+		ft_putusage(0);
 		exit(1);
 	}
 	ft_check_frac(e, argv);
@@ -67,8 +61,6 @@ void cross_string(t_env *e)
 {
 	double x0;
 	double y0;
-	int maxk;
-	int cmp;
 
 	e->y = 0;
 	while (e->y < e->winy)
@@ -81,13 +73,11 @@ void cross_string(t_env *e)
 			if (e->fract == 1)
 				mandelbroth(x0, y0, e);
 			else if (e->fract == 2)
-				cmp = julia(x0, y0, e);
+				julia(x0, y0, e);
 			else if (e->fract == 3)
 				burning_ship(x0, y0, e);
 			else if (e->fract == 4)
 				burning_ship_move(x0, y0, e);
-			if (maxk < cmp)
-				maxk = cmp;
 			e->x++;
 		}
 		e->y++;

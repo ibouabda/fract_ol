@@ -6,7 +6,7 @@
 /*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/17 19:06:01 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:48:33 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,6 @@ void			burning_ship(double x, double y, t_env *e);
 int				burning_ship_move(double x, double y, t_env *e);
 int				ft_motion(int x, int y, t_env *e);
 int				mouse_button(int button, int x, int y, t_env *e);
+void			ft_putusage(int a);
 #endif
 

@@ -6,53 +6,11 @@
 /*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 11:29:23 by retounsi          #+#    #+#             */
-/*   Updated: 2019/10/17 19:07:04 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:48:07 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fractol.h"
-
-// void	ft_find_color(t_point a, t_env *e)
-// {
-// 	int	color;
-
-// 	color = 0;
-// 	if (a.h > 0)
-// 		color = ABS(255 * (a.h / (float)(e->max * e->alt)));
-// 	if (a.h < 0)
-// 		color = ABS(255 * (a.h / (float)(e->min * e->alt)));
-// 	ft_fill_pixel(a, color, e);
-// }
-
-// void	ft_fill_pixel(t_point point, int color, t_env *e)
-// {
-// 	int	pos;
-
-// 	pos = point.y * e->winx * 4 + point.x * 4;
-// 	if (point.h >= 0)
-// 	{
-// 		e->img_string[pos] = (char)150;
-// 		e->img_string[pos + 1] = (char)0;
-// 		e->img_string[pos + 2] = (char)color;
-// 	}
-// 	else
-// 	{
-// 		e->img_string[pos] = (char)150;
-// 		e->img_string[pos + 1] = (char)color;
-// 		e->img_string[pos + 2] = (char)0;
-// 	}
-// }
-
-void	ft_fill_pixel(int x, int y, t_env *e) // a supprimer
-{
-	int	pos;
-
-	pos = y * e->winx * 4 + x * 4;
-	e->img_string[pos] = (char)255;
-	e->img_string[pos + 1] = (char)255;
-	e->img_string[pos + 2] = (char)255;
-}
-
 
 void fractale_creation(t_env *e)
 {
@@ -62,11 +20,8 @@ void fractale_creation(t_env *e)
 	interface_in_game(e);
 }
 
-void	ft_fill_pixel_color(int x, int y, int color, t_env *e)
+void ft_define_color(int pos, int color, t_env *e)
 {
-	int	pos;
-
-	pos = y * e->winx * 4 + x * 4;
 	if (e->b == 0 && e->r == 0 && e->g == 0 && e->neg == 0)
 	{
 		e->img_string[pos] = (char)(color);
@@ -91,6 +46,14 @@ void	ft_fill_pixel_color(int x, int y, int color, t_env *e)
 		e->img_string[pos + 1] = (char)(255 - (e->g * color));
 		e->img_string[pos + 2] = (char)(255 - (e->r * color));
 	}
+}
+
+void	ft_fill_pixel_color(int x, int y, int color, t_env *e)
+{
+	int	pos;
+
+	pos = y * e->winx * 4 + x * 4;
+	ft_define_color(pos, color, e);
 }
 
 void	new_window(t_env *e)
