@@ -6,7 +6,7 @@
 /*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/18 15:48:33 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/18 21:16:12 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@
 
 typedef struct	s_env
 {
+	// t_list m;
 	int		bool;
 	int		cursorx;
 	int		cursory;

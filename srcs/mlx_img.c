@@ -6,19 +6,11 @@
 /*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 11:29:23 by retounsi          #+#    #+#             */
-/*   Updated: 2019/10/18 15:48:07 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/18 18:44:38 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fractol.h"
-
-void fractale_creation(t_env *e)
-{
-	new_img(e);
-	cross_string(e);
-	mlx_put_image_to_window(e->mlx_ptr, e->win_ptr, e->img_ptr, 0, 0);
-	interface_in_game(e);
-}
 
 void ft_define_color(int pos, int color, t_env *e)
 {

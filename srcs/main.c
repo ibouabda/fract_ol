@@ -6,7 +6,7 @@
 /*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/18 15:30:52 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/18 21:14:07 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ void ft_begin(t_env *e)
 	e->repx = e->midx;
 	e->repy = e->midy;
 	e->zoom = 1;
-	e->cursorx = -1;
-	e->cursory = -1;
 	e->convx = e->midx / 2.35;
 	e->convy = e->midy / 1.25;
 	e->cn = 0;

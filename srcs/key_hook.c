@@ -6,7 +6,7 @@
 /*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 13:25:35 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/17 19:04:35 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/18 21:16:05 by idris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,35 +36,93 @@ int ft_motion(int x, int y, t_env *e)
 	return (0);
 }
 
+void unzoom(t_env *e, int x, int y)
+{
+	long long int zoom;
+
+	zoom = 1;
+	e->repx = e->midx;
+	e->repy = e->midy;
+	while (zoom < e->zoom)
+	{
+		e->repx = e->repx + (e->repx - (x + e->depx));
+		e->repy = e->repy + (e->repy - (y + e->depy));
+		zoom = zoom * 2;
+	}
+}
+
 int mouse_button(int button, int x, int y, t_env *e)
 {
 	(void)x;
 	(void)y;
-	
+
 	if (button == 4)
 	{
 		e->zoom = e->zoom * 2;
 		e->repx = e->repx + (e->repx - (x + e->depx));
 		e->repy = e->repy + (e->repy - (y + e->depy));
-		e->cursorx = x;
-		e->cursory = y;
 		e->convx = e->midx / (2.35 / e->zoom);
 		e->convy = e->midy / (1.25 / e->zoom);
 		fractale_creation(e);
 	}
 	if (button == 5 && e->zoom > 1)
 	{
-		e->zoom = 1;
-		e->repx = e->midx;
-		e->repy = e->midy;
+		e->zoom = e->zoom / 2;
+		e->repx = e->repx * -1;
+		e->repy = e->repy * -1;
+		// unzoom(e, e->cursorx, e->cursory);
 		e->convx = e->midx/ (2.35 / e->zoom);
 		e->convy = e->midy/ (1.25 / e->zoom);
 		fractale_creation(e);
 	}
+	// printf("e->zoom = %lli, e->repx = %lli, e->repy = %lli\n", e->zoom, e->repx, e->repy);
 	if (button == 2)
 		BOOL(e->move);
 	return (0);
 }
+
+// void unzoom(t_env *e, int x, int y)
+// {
+// 	long long int zoom;
+
+// 	zoom = 1;
+// 	e->repx = e->midx;
+// 	e->repy = e->midy;
+// 	while (zoom < e->zoom)
+// 	{
+// 		e->repx = e->repx + (e->repx - (x + e->depx));
+// 		e->repy = e->repy + (e->repy - (y + e->depy));
+// 		zoom = zoom * 2;
+// 	}
+// }
+
+// int mouse_button(int button, int x, int y, t_env *e)
+// {
+// 	(void)x;
+// 	(void)y;
+
+// 	if (button == 4)
+// 	{
+// 		e->zoom = e->zoom * 2;
+// 		e->repx = e->repx + (e->repx - (x + e->depx));
+// 		e->repy = e->repy + (e->repy - (y + e->depy));
+// 		e->convx = e->midx / (2.35 / e->zoom);
+// 		e->convy = e->midy / (1.25 / e->zoom);
+// 		fractale_creation(e);
+// 	}
+// 	if (button == 5 && e->zoom > 1)
+// 	{
+// 		e->zoom = e->zoom / 2;
+// 		unzoom(e, e->cursorx, e->cursory);
+// 		e->convx = e->midx/ (2.35 / e->zoom);
+// 		e->convy = e->midy/ (1.25 / e->zoom);
+// 		fractale_creation(e);
+// 	}
+// 	// printf("e->zoom = %lli, e->repx = %lli, e->repy = %lli\n", e->zoom, e->repx, e->repy);
+// 	if (button == 2)
+// 		BOOL(e->move);
+// 	return (0);
+// }
 
 void	ft_key_hook2(int keycode, t_env *e)
 {
