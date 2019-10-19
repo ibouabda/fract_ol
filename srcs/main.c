@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/18 21:14:07 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/19 15:45:39 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,12 @@ void cross_string(t_env *e)
 		e->x = 0;
 		while (e->x < e->winx)
 		{
-			x0 = (double)(e->x - (e->repx) + e->depx) / (double)e->convx;
-			y0 = (double)(e->y - (e->repy) + e->depy) / (double)e->convy;
+			x0 = ((double)(e->x + e->depx) / (double)e->convx) - e->envlx;
+			y0 = ((double)(e->y + e->depy) / (double)e->convy) - e->envly;
+			if (e->x == 0 && e->y == 0)
+			{
+				printf("x0 = %f, y0 = %f\n", x0, y0);
+			}
 			if (e->fract == 1)
 				mandelbroth(x0, y0, e);
 			else if (e->fract == 2)
@@ -90,9 +94,11 @@ void ft_begin(t_env *e)
 	e->depy = 0;
 	e->midx = e->winx / 2;
 	e->midy = e->winy / 2;
-	e->repx = e->midx;
-	e->repy = e->midy;
+	e->repx = 0;
+	e->repy = 0;
 	e->zoom = 1;
+	e->envlx = 2.35;
+	e->envly = 1.25;
 	e->convx = e->midx / 2.35;
 	e->convy = e->midy / 1.25;
 	e->cn = 0;

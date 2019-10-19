@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 13:25:35 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/18 21:16:05 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/19 15:56:08 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,25 @@ int mouse_button(int button, int x, int y, t_env *e)
 	if (button == 4)
 	{
 		e->zoom = e->zoom * 2;
-		e->repx = e->repx + (e->repx - (x + e->depx));
-		e->repy = e->repy + (e->repy - (y + e->depy));
-		e->convx = e->midx / (2.35 / e->zoom);
-		e->convy = e->midy / (1.25 / e->zoom);
+		e->envlx = (2.35 / e->zoom) + (double)(x / (double)e->convx);
+		e->envly = (1.25 / e->zoom) + (double)(y / (double)e->convy);
+		e->convx = e->midx / e->envlx;
+		e->convy = e->midy / e->envly;
+		// e->repx = (double)(x / (double)e->convx);
+		// e->repy = (double)(y / (double)e->convy);
 		fractale_creation(e);
 	}
 	if (button == 5 && e->zoom > 1)
 	{
-		e->zoom = e->zoom / 2;
-		e->repx = e->repx * -1;
-		e->repy = e->repy * -1;
-		// unzoom(e, e->cursorx, e->cursory);
-		e->convx = e->midx/ (2.35 / e->zoom);
-		e->convy = e->midy/ (1.25 / e->zoom);
-		fractale_creation(e);
+		// e->zoom = e->zoom / 2;
+		// unzoom(e, x, y);
+		// // unzoom(e, e->cursorx, e->cursory);
+		// e->convx = e->midx/ (2.35 / e->zoom);
+		// e->convy = e->midy/ (1.25 / e->zoom);
+		// fractale_creation(e);
 	}
-	// printf("e->zoom = %lli, e->repx = %lli, e->repy = %lli\n", e->zoom, e->repx, e->repy);
+	printf("e->zoom = %lli, e->envlx = %f, e->repy = %f\n", e->zoom, e->repx, e->repy);
+	printf("e->zoom = %lli, e->repx = %f, e->repy = %f\n", e->zoom, e->repx, e->repy);
 	if (button == 2)
 		BOOL(e->move);
 	return (0);

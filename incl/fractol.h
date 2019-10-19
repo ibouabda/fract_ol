@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/18 21:16:12 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/19 10:48:25 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,15 @@
 typedef struct	s_env
 {
 	// t_list m;
+	double	envlx;
+	double	envly;
 	int		bool;
 	int		cursorx;
 	int		cursory;
 	int		depx;
 	int		depy;
-	long long int		repx;
-	long long int		repy;
+	double		repx;
+	double		repy;
 	long long int		zoom;
 	int		iter;
 	int		move; //deplsouris
