@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idris <idris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 11:29:23 by retounsi          #+#    #+#             */
-/*   Updated: 2019/10/18 18:44:38 by idris            ###   ########.fr       */
+/*   Updated: 2019/10/19 16:42:02 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fractol.h"
 
-void ft_define_color(int pos, int color, t_env *e)
+void	ft_define_color(int pos, int color, t_env *e)
 {
 	if (e->b == 0 && e->r == 0 && e->g == 0 && e->neg == 0)
 	{

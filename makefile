@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: idris <idris@student.42.fr>                +#+  +:+       +#+         #
+#    By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/11 17:46:29 by idris             #+#    #+#              #
-#    Updated: 2019/10/17 19:02:27 by idris            ###   ########.fr        #
+#    Updated: 2019/10/19 18:47:41 by ibouabda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### COMPILATION ###
 
-CC = gcc -g
+CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
@@ -59,14 +59,14 @@ $(NAME): $(OBJS)
 	@echo "$(GREEN)Checking lib files ...$(NOC)"
 	@make -C $(LIBFT)
 	@make -C $(LIBMLX)
-	@$(CC) -w $(CFLAGS) -L $(LIBFT) -o $@ $^ $(MLXFLAGS) -L $(LIBMLX) minilibx_macos/libmlx.a libft/libft.a
+	@$(CC) $(CFLAGS) -L $(LIBFT) -o $@ $^ $(MLXFLAGS) -L $(LIBMLX) minilibx_macos/libmlx.a libft/libft.a
 	@echo "$(GREEN)Project successfully compiled !$(NOC)"
 
 tmp:
 	@mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)/$(NAME).h
-	@$(CC) $(CFLAGS) -w -I $(HEADER) -c -o $@ $<
+	@$(CC) $(CFLAGS) -I $(HEADER) -c -o $@ $<
 	@echo "$(BLUE)Creating object file -> $(YELLOW)$(notdir $@)... $(GREEN)[Done]$(NOC)"
 
 

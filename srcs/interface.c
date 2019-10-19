@@ -6,17 +6,17 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 10:08:26 by idris             #+#    #+#             */
-/*   Updated: 2019/10/19 09:37:12 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/19 18:49:34 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fractol.h"
 
-void ft_putusage(int a)
+void	ft_putusage(int a)
 {
 	ft_putendl("usage: ./fractol fractale_name [weidth_size]\
 [long_size]");
-	ft_putendl("Choose one of this fractals:\n->mandelbroth\n->julia\n\
+	ft_putendl("Choose one of this fractals:\n->mandelbrot\n->julia\n\
 ->burnship\n->burnship_mv");
 	if (a == 1)
 	{
@@ -25,13 +25,13 @@ void ft_putusage(int a)
 	}
 }
 
-void interface_in_game(t_env *e)
+void	interface_in_game(t_env *e)
 {
 	char *striter;
 	char *todel;
 
 	striter = ft_itoa(e->iter);
-	todel = ft_strjoin("Iter : ", striter); //memory "Iter:" ???"
+	todel = ft_strjoin("Iter : ", striter);
 	if (e->neg == 1)
 		mlx_string_put(e->mlx_ptr, e->win_ptr, 5, 5, 0x808080, "N");
 	if (e->r == 1)
@@ -62,8 +62,8 @@ void	interface(t_env *e)
 	e->winy / 4 + a * 4, 0xffffff, ZOOM);
 	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(COLORS) * 5,\
 	e->winy / 4 + a * 5, 0xffffff, COLORS);
-	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(FRACTAL) * 5,\
-	e->winy / 4 + a * 6, 0xffffff, FRACTAL);
+	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(FRACTAL) * \
+	5, e->winy / 4 + a * 6, 0xffffff, FRACTAL);
 	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(PAUSE) * 5,\
 	e->winy / 4 + a * 7, 0xffffff, PAUSE);
 	mlx_string_put(e->mlx_ptr, e->win_ptr, e->winx / 2 - ft_strlen(RESET) * 5,\

@@ -6,15 +6,15 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/19 15:45:39 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/19 19:03:06 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fractol.h"
 
-void ft_check_frac(t_env *e, char **argv)
+void	ft_check_frac(t_env *e, char **argv)
 {
-	if (ft_strcmp(argv[1], "mandelbroth") == 0)
+	if (ft_strcmp(argv[1], "mandelbrot") == 0)
 		e->fract = 1;
 	else if (ft_strcmp(argv[1], "julia") == 0)
 		e->fract = 2;
@@ -24,7 +24,7 @@ void ft_check_frac(t_env *e, char **argv)
 		e->fract = 4;
 	else
 	{
-		ft_putendl("Choose one of this fractals:\n->mandelbroth\n->julia\n\
+		ft_putendl("Choose one of this fractals:\n->mandelbrot\n->julia\n\
 ->burnship\n->burnship_mv");
 		exit(1);
 	}
@@ -57,7 +57,7 @@ void	ft_check(t_env *e, int argc, char **argv)
 	ft_check_frac(e, argv);
 }
 
-void cross_string(t_env *e)
+void	cross_string(t_env *e)
 {
 	double x0;
 	double y0;
@@ -68,14 +68,10 @@ void cross_string(t_env *e)
 		e->x = 0;
 		while (e->x < e->winx)
 		{
-			x0 = ((double)(e->x + e->depx) / (double)e->convx) - e->envlx;
-			y0 = ((double)(e->y + e->depy) / (double)e->convy) - e->envly;
-			if (e->x == 0 && e->y == 0)
-			{
-				printf("x0 = %f, y0 = %f\n", x0, y0);
-			}
+			x0 = (double)(e->x - (e->repx) + e->depx) / (double)e->convx;
+			y0 = (double)(e->y - (e->repy) + e->depy) / (double)e->convy;
 			if (e->fract == 1)
-				mandelbroth(x0, y0, e);
+				mandelbrot(x0, y0, e);
 			else if (e->fract == 2)
 				julia(x0, y0, e);
 			else if (e->fract == 3)
@@ -88,17 +84,15 @@ void cross_string(t_env *e)
 	}
 }
 
-void ft_begin(t_env *e)
+void	ft_begin(t_env *e)
 {
 	e->depx = 0;
 	e->depy = 0;
 	e->midx = e->winx / 2;
 	e->midy = e->winy / 2;
-	e->repx = 0;
-	e->repy = 0;
+	e->repx = e->midx;
+	e->repy = e->midy;
 	e->zoom = 1;
-	e->envlx = 2.35;
-	e->envly = 1.25;
 	e->convx = e->midx / 2.35;
 	e->convy = e->midy / 1.25;
 	e->cn = 0;
@@ -111,17 +105,14 @@ void ft_begin(t_env *e)
 	e->iter = 25;
 }
 
-
-
-int main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_env e;
 
 	ft_check(&e, argc, argv);
 	new_window(&e);
 	e.bool = 0;
-	img(&e);
-	e.esc_img_ptr = e.img_ptr;
+	e.esc_img_ptr =mlx_new_image(e.mlx_ptr, e.winx, e.winy);
 	mlx_put_image_to_window(e.mlx_ptr, e.win_ptr, e.esc_img_ptr, 0, 0);
 	interface(&e);
 	img(&e);
@@ -130,5 +121,5 @@ int main(int argc, char **argv)
 	mlx_mouse_hook(e.win_ptr, mouse_button, &e);
 	mlx_hook(e.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK, ft_motion, &e);
 	mlx_loop(e.mlx_ptr);
-	return(0);
+	return (0);
 }

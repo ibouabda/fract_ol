@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 12:02:16 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/19 10:48:25 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/19 18:49:25 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@
 # define BEGIN "Let's Play : Press On ENTER"
 # define MOVE "Move : Arrows"
 # define VAR "Activate/Desactivate Variation : Right Click"
-# define ZOOM "Zoom/Unzoom : Mouse Wheel"
+# define ZOOM "Zoom/Unzoom : Scroll"
 # define COLORS "Choose Colors : R, G, B, N"
 # define FRACTAL "Choose Fractal : 1, 2, 3, 4"
 # define PAUSE "Pause : ESC"
@@ -92,39 +92,34 @@
 
 typedef struct	s_env
 {
-	// t_list m;
-	double	envlx;
-	double	envly;
-	int		bool;
-	int		cursorx;
-	int		cursory;
-	int		depx;
-	int		depy;
-	double		repx;
-	double		repy;
-	long long int		zoom;
-	int		iter;
-	int		move; //deplsouris
-	int		r;
-	int		g;
-	int		b;
-	int		neg;
-	int		winx;
-	int		winy;
-	int		midx;
-	int		midy;
-	float	convx;
-	float	convy;
-	int		fract;
-	float	ci;
-	float	cn;
-	int		x;
-	int		y;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*esc_img_ptr;
-	void	*img_ptr;
-	char	*img_string;
+	int				bool;
+	int				depx;
+	int				depy;
+	long long int	repx;
+	long long int	repy;
+	long long int	zoom;
+	int				iter;
+	int				move;
+	int				r;
+	int				g;
+	int				b;
+	int				neg;
+	int				winx;
+	int				winy;
+	int				midx;
+	int				midy;
+	double			convx;
+	double			convy;
+	int				fract;
+	double			ci;
+	double			cn;
+	int				x;
+	int				y;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	void			*esc_img_ptr;
+	void			*img_ptr;
+	char			*img_string;
 }				t_env;
 
 void			new_window(t_env *e);
@@ -139,12 +134,11 @@ void			interface(t_env *e);
 void			move(int keycode, t_env *e);
 int				ft_key_hook(int keycode, t_env *e);
 void			ft_begin(t_env *e);
-void			mandelbroth(double x, double y, t_env *e);
-int				julia(double x, double y, t_env *e);
+void			mandelbrot(double x, double y, t_env *e);
+void			julia(double x, double y, t_env *e);
 void			burning_ship(double x, double y, t_env *e);
-int				burning_ship_move(double x, double y, t_env *e);
+void			burning_ship_move(double x, double y, t_env *e);
 int				ft_motion(int x, int y, t_env *e);
 int				mouse_button(int button, int x, int y, t_env *e);
 void			ft_putusage(int a);
 #endif
-
