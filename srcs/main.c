@@ -6,7 +6,7 @@
 /*   By: ibouabda <ibouabda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 18:42:10 by ibouabda          #+#    #+#             */
-/*   Updated: 2019/10/19 19:03:06 by ibouabda         ###   ########.fr       */
+/*   Updated: 2019/10/20 11:56:14 by ibouabda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		main(int argc, char **argv)
 	ft_check(&e, argc, argv);
 	new_window(&e);
 	e.bool = 0;
-	e.esc_img_ptr =mlx_new_image(e.mlx_ptr, e.winx, e.winy);
+	e.esc_img_ptr = mlx_new_image(e.mlx_ptr, e.winx, e.winy);
 	mlx_put_image_to_window(e.mlx_ptr, e.win_ptr, e.esc_img_ptr, 0, 0);
 	interface(&e);
 	img(&e);
