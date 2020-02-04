@@ -8,7 +8,7 @@ une surface, dont la structure est invariante quelque soit le changement d’éc
 
 # Julia
 
-![Julia](https://github.com/ibouabda/frac_ol/blob/master/pics/Julia.png)
+![Julia](https://github.com/ibouabda/fract_ol/blob/master/pics/Julia.png)
 
 # Mandelbrot
 
